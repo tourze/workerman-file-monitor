@@ -1,58 +1,6 @@
-# Workerman File Monitor
-
-A file monitoring service for Workerman projects, extracted from webman framework.
-
-[中文文档](#workerman-文件监听服务)
-
-## Features
-
-- Monitor file changes in specified directories
-- Support multiple file extensions
-- Auto reload when files are modified
-- Memory usage monitoring
-- PSR-3 logger support
-- Cross-platform support (Linux/Unix/Windows)
-
-## Installation
-
-```bash
-composer require tourze/workerman-file-monitor
-```
-
-## Usage
-
-```php
-use Tourze\Workerman\FileMonitor\FileMonitorWorker;
-
-// Create your Workerman worker first
-$worker = new Worker('...');
-
-// Initialize file monitor
-new FileMonitorWorker(
-    monitor_dir: '/path/to/your/code',  // Directory to monitor
-    monitor_extensions: ['php'],         // File extensions to monitor
-    memory_limit: '512M',               // Optional: memory limit
-    logger: $logger                     // Optional: PSR-3 logger
-);
-```
-
-## Configuration
-
-- `monitor_dir`: Directory or array of directories to monitor
-- `monitor_extensions`: Array of file extensions to monitor (e.g., ['php', 'js'])
-- `memory_limit`: Memory limit for worker processes (default: 80% of php.ini memory_limit)
-- `logger`: PSR-3 compatible logger instance
-
-## Notes
-
-- File monitoring is disabled in daemon mode
-- Requires `exec()` function to be enabled in PHP
-- Memory monitoring is only available on Linux/Unix systems
-- Minimum memory limit is 30MB
-
----
-
 # Workerman 文件监听服务
+
+[English](#workerman-file-monitor)
 
 从 webman 框架中提取出来的文件监听服务，用于 Workerman 项目。
 
@@ -101,3 +49,55 @@ new FileMonitorWorker(
 - 需要 PHP 中启用 `exec()` 函数
 - 内存监控仅在 Linux/Unix 系统上可用
 - 最小内存限制为 30MB
+
+---
+
+## Workerman File Monitor
+
+A file monitoring service for Workerman projects, extracted from webman framework.
+
+## Features
+
+- Monitor file changes in specified directories
+- Support multiple file extensions
+- Auto reload when files are modified
+- Memory usage monitoring
+- PSR-3 logger support
+- Cross-platform support (Linux/Unix/Windows)
+
+## Installation
+
+```bash
+composer require tourze/workerman-file-monitor
+```
+
+## Usage
+
+```php
+use Tourze\Workerman\FileMonitor\FileMonitorWorker;
+
+// Create your Workerman worker first
+$worker = new Worker('...');
+
+// Initialize file monitor
+new FileMonitorWorker(
+    monitor_dir: '/path/to/your/code',  // Directory to monitor
+    monitor_extensions: ['php'],         // File extensions to monitor
+    memory_limit: '512M',               // Optional: memory limit
+    logger: $logger                     // Optional: PSR-3 logger
+);
+```
+
+## Configuration
+
+- `monitor_dir`: Directory or array of directories to monitor
+- `monitor_extensions`: Array of file extensions to monitor (e.g., ['php', 'js'])
+- `memory_limit`: Memory limit for worker processes (default: 80% of php.ini memory_limit)
+- `logger`: PSR-3 compatible logger instance
+
+## Notes
+
+- File monitoring is disabled in daemon mode
+- Requires `exec()` function to be enabled in PHP
+- Memory monitoring is only available on Linux/Unix systems
+- Minimum memory limit is 30MB
