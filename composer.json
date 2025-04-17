@@ -8,6 +8,9 @@
     "workerman/workerman": "^5.1",
     "psr/log": "^3|^2|^1"
   },
+  "require-dev": {
+    "jetbrains/phpstorm-stubs": "^2024.3"
+  },
   "autoload": {
     "psr-4": {
       "Tourze\\Workerman\\FileMonitor\\": "src"
