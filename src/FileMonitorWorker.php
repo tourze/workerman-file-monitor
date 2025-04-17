@@ -150,7 +150,7 @@ class FileMonitorWorker
         if (-1 == $memory_limit) {
             return 0;
         }
-        $unit = $memory_limit[mb_strlen($memory_limit) - 1];
+        $unit = $memory_limit[strlen($memory_limit) - 1];
         if ('G' == $unit) {
             $memory_limit = 1024 * (int) $memory_limit;
         } elseif ('M' == $unit) {
