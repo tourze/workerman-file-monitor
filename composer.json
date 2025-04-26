@@ -16,5 +16,10 @@
     "psr-4": {
       "Tourze\\Workerman\\FileMonitor\\": "src"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tourze\\Workerman\\FileMonitor\\Tests\\": "tests"
+    }
   }
 }
