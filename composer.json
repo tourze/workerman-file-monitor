@@ -10,7 +10,8 @@
   },
   "require-dev": {
     "jetbrains/phpstorm-stubs": "^2024.3",
-    "phpstan/phpstan": "^2.1"
+    "phpstan/phpstan": "^2.1",
+    "maglnet/composer-require-checker": "^4"
   },
   "autoload": {
     "psr-4": {
