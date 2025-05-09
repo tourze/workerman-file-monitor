@@ -12,7 +12,8 @@
     "jetbrains/phpstorm-stubs": "^2024.3",
     "maglnet/composer-require-checker": "^4",
     "phpstan/phpstan": "^2.1",
-    "phpunit/phpunit": "^10.0"
+    "phpunit/phpunit": "^10.0",
+    "mikey179/vfsstream": "^v1.6.11"
   },
   "autoload": {
     "psr-4": {
