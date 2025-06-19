@@ -60,6 +60,7 @@ class MemoryMonitorTest extends TestCase
         $monitor = new MemoryMonitor(0, $this->logger);
         
         // 由于实现中没有依赖注入， 这里只能简单验证方法调用不会抛出异常
-        $this->assertNull($monitor->checkMemory());
+        $monitor->checkMemory();
+        $this->addToAssertionCount(1); // 只是确保没有抛出异常
     }
 } 

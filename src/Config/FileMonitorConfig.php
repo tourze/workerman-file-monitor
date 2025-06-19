@@ -62,12 +62,12 @@ class FileMonitorConfig
      */
     private function parseMemoryLimit(?string $memoryLimit): int
     {
-        if (0 === $memoryLimit || $memoryLimit === '0') {
+        if ($memoryLimit === '0') {
             return 0;
         }
 
         $usePhpIni = false;
-        if (!$memoryLimit) {
+        if (empty($memoryLimit)) {
             $memoryLimit = ini_get('memory_limit');
             $usePhpIni = true;
         }
@@ -86,7 +86,7 @@ class FileMonitorConfig
             // 如果 KB 值太小，可能会被下面的最小限制覆盖
         } else {
             // 纯数字，假设为字节
-            $memoryLimit = (int) ($memoryLimit / (1024 * 1024));
+            $memoryLimit = (int) (intval($memoryLimit) / (1024 * 1024));
         }
 
         // 应用最小限制

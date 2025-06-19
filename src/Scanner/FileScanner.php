@@ -67,7 +67,7 @@ class FileScanner
                 // 检查PHP语法错误
                 $var = 0;
                 exec('"' . PHP_BINARY . '" -l ' . $file, $out, $var);
-                if ($var) {
+                if ($var !== 0) {
                     $this->lastMtime = $file->getMTime();
                     continue;
                 }

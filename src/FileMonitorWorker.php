@@ -75,7 +75,7 @@ class FileMonitorWorker
     private function initializeMonitoring(): void
     {
         // 如果没有 Worker 实例则跳过
-        if (!Worker::getAllWorkers()) {
+        if (empty(Worker::getAllWorkers())) {
             return;
         }
 
