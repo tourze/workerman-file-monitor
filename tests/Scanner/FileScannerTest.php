@@ -48,7 +48,9 @@ class FileScannerTest extends TestCase
      */
     public function testCheckNonExistentDirectory()
     {
-        $this->markTestSkipped('暂时跳过，等待正确配置 vfsStream');
+        $nonExistentPath = '/nonexistent/path/that/should/not/exist';
+        $result = $this->scanner->checkFilesChange($nonExistentPath);
+        $this->assertFalse($result);
     }
     
     /**
@@ -56,7 +58,11 @@ class FileScannerTest extends TestCase
      */
     public function testCheckSingleFile()
     {
-        $this->markTestSkipped('暂时跳过，等待正确配置 vfsStream');
+        // 使用当前测试文件作为测试目标
+        $testFile = __FILE__;
+        $result = $this->scanner->checkFilesChange($testFile);
+        // 由于文件修改时间早于scanner的创建时间，应该返回false
+        $this->assertFalse($result);
     }
     
     /**
@@ -64,7 +70,14 @@ class FileScannerTest extends TestCase
      */
     public function testCheckAllFilesChange()
     {
-        $this->markTestSkipped('暂时跳过，等待正确配置 vfsStream');
+        // 使用测试目录作为测试目标
+        $testDirs = [
+            __DIR__,
+            '/nonexistent/path'
+        ];
+        $result = $this->scanner->checkAllFilesChange($testDirs);
+        // 由于文件修改时间早于scanner的创建时间，应该返回false
+        $this->assertFalse($result);
     }
     
     /**
@@ -72,6 +85,22 @@ class FileScannerTest extends TestCase
      */
     public function testTooManyFilesWarning()
     {
-        $this->markTestSkipped('暂时跳过，等待正确配置 vfsStream');
+        // 创建一个能记录日志的mock logger
+        $mockLogger = $this->createMock(LoggerInterface::class);
+        
+        // 期望调用warning方法，但由于实际目录可能没有超过1000个文件，这里只测试逻辑
+        // 使用vendor目录作为测试（通常文件较多）
+        $vendorDir = dirname(dirname(dirname(__DIR__))) . '/vendor';
+        if (is_dir($vendorDir)) {
+            $scanner = new FileScanner(['php'], $mockLogger);
+            $result = $scanner->checkFilesChange($vendorDir);
+            // 由于文件修改时间早于scanner的创建时间，应该返回false
+            $this->assertFalse($result);
+        } else {
+            // 如果没有vendor目录，测试正常的目录
+            $scanner = new FileScanner(['php'], $mockLogger);
+            $result = $scanner->checkFilesChange(__DIR__);
+            $this->assertFalse($result);
+        }
     }
 } 

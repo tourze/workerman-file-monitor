@@ -54,28 +54,34 @@ class WorkerReloaderTest extends TestCase
             
             $this->assertTrue($result);
         } else {
-            $this->markTestSkipped('仅在 Windows 环境测试');
+            // 在非Windows环境下，测试reload方法的调用
+            $reloader = new WorkerReloader($this->logger);
+            $result = $reloader->reload();
+            // 在Unix/Linux环境下，reload方法应该调用posix_kill
+            $this->assertTrue($result);
         }
     }
     
     /**
-     * 测试日志记录 - Unix 环境
+     * 测试日志记录功能
      */
-    public function testLogMessageOnUnix()
+    public function testLogMessage()
     {
         if (DIRECTORY_SEPARATOR === '/') {
-            // 仅在 Unix/Linux 环境测试
+            // Unix/Linux 环境测试日志消息
             $this->logger->expects($this->once())
                 ->method('info')
                 ->with($this->stringContains('Sending SIGUSR1 signal'));
-            
-            $reloader = new WorkerReloader($this->logger);
-            
-            // 注意：由于实际调用了 posix_kill，我们无法真正运行这个测试
-            // 这里只是演示单元测试的结构
-            $this->markTestSkipped('无法测试 posix_kill 调用');
         } else {
-            $this->markTestSkipped('仅在 Unix/Linux 环境测试');
+            // Windows 环境测试日志消息
+            $this->logger->expects($this->once())
+                ->method('info')
+                ->with($this->stringContains('File change detected'));
         }
+        
+        $reloader = new WorkerReloader($this->logger);
+        $result = $reloader->reload();
+        
+        $this->assertTrue($result);
     }
 } 
